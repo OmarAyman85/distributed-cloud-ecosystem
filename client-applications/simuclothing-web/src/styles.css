@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@source "./app";
+
+@theme {
+  --color-primary: #d4af37; /* Gold */
+  --color-secondary: #000000; /* Black */
+}
+
+/* Global Styles */
+html,
+body {
+  height: 100%;
+}

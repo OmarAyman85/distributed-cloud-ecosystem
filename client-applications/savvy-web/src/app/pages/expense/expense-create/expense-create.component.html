@@ -1,0 +1,99 @@
+<div class="header">
+  <p>Expense form</p>
+  <!-- ************************************************* -->
+  <form [formGroup]="expenseForm" class="expense-form" (click)="onSubmit()">
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Salary, Freelance, etc."
+      />
+      <mat-error
+        *ngIf="
+          expenseForm.get('title')?.invalid && expenseForm.get('title')?.touched
+        "
+      >
+        Title is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        formControlName="description"
+        placeholder="Salary, Freelance, etc."
+      />
+      <mat-error
+        *ngIf="
+          expenseForm.get('description')?.invalid &&
+          expenseForm.get('source')?.touched
+        "
+      >
+        Description is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <input
+        matInput
+        formControlName="category"
+        placeholder="Salary, Freelance, etc."
+      />
+      <mat-error
+        *ngIf="
+          expenseForm.get('category')?.invalid &&
+          expenseForm.get('source')?.touched
+        "
+      >
+        Category is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="amount"
+        placeholder="Enter amount"
+      />
+      <mat-error
+        *ngIf="
+          expenseForm.get('amount')?.invalid &&
+          expenseForm.get('amount')?.touched
+        "
+      >
+        Enter a valid amount (greater than 0)
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput type="date" formControlName="date" />
+      <mat-error
+        *ngIf="
+          expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched
+        "
+      >
+        Date is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="expenseForm.invalid"
+      class="submit-button"
+    >
+      Submit Expense
+    </button>
+    <!-- ************************************************* -->
+  </form>
+
+  <!-- ************************************************* -->
+</div>

@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: notification-service-test
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
+    eureka:
+      enabled: false
+  mail:
+    host: localhost
+    port: 2525
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+eureka:
+  client:
+    enabled: false

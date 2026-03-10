@@ -1,0 +1,22 @@
+<app-dashboard-header></app-dashboard-header>
+
+<div
+  class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] auto-rows-[220px] gap-6 pb-5"
+  style="grid-auto-flow: dense"
+>
+  @for (w of store.addedWidgets(); track w.id) {
+    <app-widget [data]="w"></app-widget>
+  }
+  <app-chart class="col-span-full row-span-2 block"></app-chart>
+</div>
+
+<app-transaction-list></app-transaction-list>
+
+<button
+  mat-fab
+  color="primary"
+  class="!fixed !bottom-5 !right-5 !z-50"
+  (click)="openAddTransactionDialog()"
+>
+  <mat-icon>add</mat-icon>
+</button>

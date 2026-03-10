@@ -1,0 +1,53 @@
+<h2 mat-dialog-title class="text-txt-main font-bold">
+  {{ isEditing ? "Edit" : "Add" }} Debt
+</h2>
+<mat-dialog-content>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-2 mt-2"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="e.g. Student Loan" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="amount"
+        placeholder="0.00"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description (Optional)</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end gap-2 px-6 pb-4">
+  <button mat-button class="!text-txt-secondary" (click)="onCancel()">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="form.invalid"
+  >
+    {{ isEditing ? "Save" : "Add" }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,30 @@
+# SimuClothing Service Configuration
+server:
+  port: 8085 # Unique port for SimuClothing
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/simuclothing_db
+    username: omar
+    password: Omaraymanlove8599_
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+# Security Configuration
+jwt:
+  secret: ea452c68ecdea04998e840a3cfdeb91b745d4f489eaf62ed51cb24fff8f0e4aa
+  expiration: 86400000 # 24 hours
+
+# Feature Flags / External Services
+features:
+  mimoji:
+    enabled: true
+  inventory:
+    check-stock: true

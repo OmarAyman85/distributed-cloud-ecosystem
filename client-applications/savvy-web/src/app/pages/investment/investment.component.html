@@ -1,0 +1,139 @@
+<div class="p-8 max-w-7xl mx-auto min-h-screen">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-2 text-txt-main">Investments</h1>
+    <p class="text-txt-secondary text-lg">
+      Manage your portfolio and track your returns.
+    </p>
+    <div class="flex items-center gap-2 mt-4">
+      <mat-icon class="text-txt-secondary">search</mat-icon>
+      <input
+        type="text"
+        placeholder="Search investments..."
+        class="bg-surface-glass border border-border-glass rounded-lg px-3 py-2 text-sm text-txt-main placeholder:text-txt-light focus:outline-none focus:border-primary"
+        (input)="onSearchChange($event)"
+      />
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div
+    class="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6 max-sm:grid-cols-1"
+  >
+    @for (item of filteredInvestments(); track item.id) {
+      <div
+        class="glass-card p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glass"
+      >
+        <div class="flex items-center gap-4">
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center bg-indigo-500/10 text-indigo-500 font-bold uppercase text-xl"
+          >
+            {{ item.symbol | slice: 0 : 3 }}
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg font-semibold mb-0.5 text-txt-main truncate">
+              {{ item.title }}
+            </h3>
+            <p
+              class="text-sm border border-border-glass bg-surface-base px-1.5 py-0.5 rounded inline-block text-txt-secondary m-0 truncate"
+            >
+              {{ item.symbol | uppercase }}
+            </p>
+          </div>
+          <div class="flex gap-1 -mt-4">
+            <button
+              mat-icon-button
+              class="!text-txt-light hover:!text-txt-main"
+              (click)="openEditDialog(item)"
+              matTooltip="Edit"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="!text-txt-light hover:!text-danger"
+              (click)="deleteInvestment(item.id)"
+              matTooltip="Delete"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metrics -->
+        <div
+          class="grid grid-cols-2 gap-4 mt-2 p-3 rounded-lg bg-surface-base border border-border-glass"
+        >
+          <div>
+            <div
+              class="text-xs text-txt-secondary uppercase tracking-wider mb-1"
+            >
+              Invested
+            </div>
+            <div class="text-lg font-semibold text-txt-main">
+              ${{ item.amountInvested }}
+            </div>
+          </div>
+          <div>
+            <div
+              class="text-xs text-txt-secondary uppercase tracking-wider mb-1"
+            >
+              Current Value
+            </div>
+            <div class="text-lg font-semibold text-txt-main">
+              ${{ item.currentValue }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Return -->
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-txt-secondary">Total Return</span>
+          <div
+            class="flex items-center gap-2 font-bold px-2 py-1 rounded-md"
+            [ngClass]="
+              item.currentValue >= item.amountInvested
+                ? 'bg-success/10 text-success'
+                : 'bg-danger/10 text-danger'
+            "
+          >
+            <span>{{
+              getProfitOrLoss(item.amountInvested, item.currentValue)
+            }}</span>
+            <span class="text-xs opacity-80"
+              >({{
+                getProfitOrLossPercentage(
+                  item.amountInvested,
+                  item.currentValue
+                )
+              }})</span
+            >
+            <mat-icon class="!w-4 !h-4 !text-base -ml-1">{{
+              item.currentValue >= item.amountInvested
+                ? "arrow_upward"
+                : "arrow_downward"
+            }}</mat-icon>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div
+        class="col-span-full flex flex-col items-center justify-center py-16 text-txt-secondary"
+      >
+        <mat-icon class="!text-6xl !w-16 !h-16 mb-4 opacity-50"
+          >show_chart</mat-icon
+        >
+        <p class="text-xl">No investments tracked yet.</p>
+      </div>
+    }
+  </div>
+
+  <button
+    mat-fab
+    class="!fixed !bottom-8 !right-8 !bg-primary !text-white !z-50"
+    (click)="openAddDialog()"
+    matTooltip="Add Investment"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

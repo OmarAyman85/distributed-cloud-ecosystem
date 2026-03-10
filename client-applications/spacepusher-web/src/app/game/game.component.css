@@ -1,0 +1,101 @@
+.game-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background-color: #1e1e2f;
+  border-radius: 8px;
+  color: #f0f0f0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.join-form,
+.ready-section,
+.countdown-timer,
+.gameplay-section,
+.game-over {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.input-text {
+  width: 75%;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #555;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background-color: #2c2c44;
+  color: #f0f0f0;
+  transition: border-color 0.3s ease;
+}
+
+.input-text:focus {
+  outline: none;
+  border-color: #3fbf7f;
+  background-color: #212131;
+}
+
+.btn {
+  padding: 0.5rem 1.2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3fbf7f;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #36a66d;
+}
+
+.btn-success {
+  background-color: #2e8b57;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #276746;
+}
+
+.countdown-timer p,
+.game-timer {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #f8c967;
+}
+
+.tap-count {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #4caf50;
+}
+
+.game-over .winner-message {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffdd57;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  color: #61dafb;
+}
+
+p {
+  margin: 0.25rem 0;
+}

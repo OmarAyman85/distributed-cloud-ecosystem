@@ -1,0 +1,48 @@
+<div
+  class="flex flex-col items-center justify-center border-b border-border-glass bg-surface-glass shrink-0"
+  [ngClass]="sideNavCollapsed() ? 'py-3 px-1.5' : 'pt-5 px-3 pb-4'"
+>
+  <div
+    class="flex justify-center items-center w-full"
+    [ngClass]="sideNavCollapsed() ? 'mb-0' : 'mb-2.5'"
+  >
+    <img
+      [width]="profilePicSize()"
+      [height]="profilePicSize()"
+      src="assets/profilepicture.jpg"
+      alt="profile picture"
+      class="rounded-full object-cover border-2 border-primary shadow-md transition-all duration-300 hover:scale-105 hover:border-primary-light"
+    />
+  </div>
+  <div
+    class="text-center transition-all duration-200 max-w-full overflow-hidden"
+    [ngClass]="sideNavCollapsed() ? 'opacity-0 h-0 m-0 p-0' : ''"
+  >
+    <h2
+      class="text-[0.95rem] font-bold mb-0.5 text-txt-main whitespace-nowrap overflow-hidden text-ellipsis"
+    >
+      {{ authService.currentUser()?.name || "User" }}
+    </h2>
+    <p
+      class="text-xs text-txt-secondary m-0 whitespace-nowrap overflow-hidden text-ellipsis"
+    >
+      {{ authService.currentUser()?.email || "email@example.com" }}
+    </p>
+  </div>
+</div>
+
+<mat-nav-list [class.collapsed]="sideNavCollapsed()">
+  <a
+    mat-list-item
+    *ngFor="let item of menuItems()"
+    [routerLink]="item.route"
+    routerLinkActive
+    #rla="routerLinkActive"
+    [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+    [activated]="rla.isActive"
+    [class.collapsed]="sideNavCollapsed()"
+  >
+    <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+    <span matListItemTitle *ngIf="!sideNavCollapsed()">{{ item.label }}</span>
+  </a>
+</mat-nav-list>

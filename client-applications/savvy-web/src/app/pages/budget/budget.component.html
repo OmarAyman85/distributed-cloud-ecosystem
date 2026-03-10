@@ -1,0 +1,122 @@
+<div class="p-8 max-w-7xl mx-auto min-h-screen relative max-md:p-4">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold mb-1 text-txt-main">Budgets</h1>
+    <p class="text-txt-secondary m-0">
+      Set spending limits and track your progress
+    </p>
+  </div>
+
+  <div
+    class="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-6 max-md:grid-cols-1"
+  >
+    @for (budget of budgets(); track budget.id) {
+      <div
+        class="glass-card !p-6 transition-transform duration-200 hover:-translate-y-1"
+      >
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-5">
+          <div class="flex items-center gap-2">
+            <mat-icon class="text-primary !text-xl !w-5 !h-5"
+              >account_balance_wallet</mat-icon
+            >
+            <h3 class="m-0 text-lg font-semibold text-txt-main">
+              {{ budget.category }}
+            </h3>
+          </div>
+          <div class="flex items-center gap-2">
+            <span
+              class="text-[0.7rem] font-semibold px-2.5 py-0.5 rounded-xl uppercase tracking-wider"
+              [ngClass]="{
+                'bg-success/15 text-success':
+                  getStatusClass(budget.percentage || 0) === 'status-good',
+                'bg-accent/15 text-accent':
+                  getStatusClass(budget.percentage || 0) === 'status-warning',
+                'bg-danger/15 text-danger':
+                  getStatusClass(budget.percentage || 0) === 'status-danger',
+              }"
+              >{{ getStatusLabel(budget.percentage || 0) }}</span
+            >
+            <button
+              mat-icon-button
+              class="!text-txt-secondary !opacity-50 hover:!opacity-100 hover:!text-danger"
+              (click)="deleteBudget(budget.id!)"
+              matTooltip="Delete Budget"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Amounts -->
+        <div class="grid grid-cols-3 gap-4 mb-4">
+          <div class="flex flex-col gap-0.5">
+            <span class="text-xs text-txt-secondary uppercase tracking-wider"
+              >Spent</span
+            >
+            <span class="text-lg font-bold text-txt-main"
+              >${{ (budget.spent || 0).toFixed(0) }}</span
+            >
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <span class="text-xs text-txt-secondary uppercase tracking-wider"
+              >Limit</span
+            >
+            <span class="text-lg font-bold text-txt-main"
+              >${{ budget.budgetLimit }}</span
+            >
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <span class="text-xs text-txt-secondary uppercase tracking-wider"
+              >Remaining</span
+            >
+            <span
+              class="text-lg font-bold"
+              [ngClass]="
+                (budget.remaining || 0) < 0 ? 'text-danger' : 'text-txt-main'
+              "
+            >
+              ${{ (budget.remaining || 0).toFixed(0) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <mat-progress-bar
+          [mode]="'determinate'"
+          [value]="budget.percentage || 0"
+          [color]="getProgressColor(budget.percentage || 0)"
+          class="!rounded !h-2 mb-3"
+        ></mat-progress-bar>
+
+        <!-- Footer -->
+        <div class="flex justify-between items-center">
+          <span
+            class="text-[0.7rem] px-2 py-0.5 rounded-lg bg-primary/10 text-primary font-semibold"
+            >{{ budget.period }}</span
+          >
+          <span class="text-sm font-semibold text-txt-secondary"
+            >{{ (budget.percentage || 0).toFixed(0) }}%</span
+          >
+        </div>
+      </div>
+    } @empty {
+      <div
+        class="col-span-full flex flex-col items-center justify-center py-16 text-txt-secondary"
+      >
+        <mat-icon class="!text-6xl !w-16 !h-16 !opacity-30 mb-4"
+          >account_balance_wallet</mat-icon
+        >
+        <p class="text-lg">No budgets set yet. Create one to start tracking!</p>
+      </div>
+    }
+  </div>
+
+  <button
+    mat-fab
+    class="!fixed !bottom-8 !right-8 !bg-primary !text-white !z-50"
+    (click)="openAddBudgetDialog()"
+    matTooltip="Add Budget"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

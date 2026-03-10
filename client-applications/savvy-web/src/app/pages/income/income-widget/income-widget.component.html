@@ -1,0 +1,28 @@
+<div
+  class="container"
+  [style.backgroundColor]="data().backgroundColor ?? 'white'"
+  [style.color]="data().color ?? 'inherit'"
+>
+  <h3>{{ data().title }}</h3>
+  <h4>{{ data().description }}</h4>
+  <h4>{{ data().category }}</h4>
+  <h4>{{ data().amount }}</h4>
+  <h4>{{ data().date }}</h4>
+
+  <button
+    mat-icon-button
+    class="settings-button"
+    (click)="showOptions.set(true)"
+    [style.color]="data().color ?? 'inherit'"
+  >
+    <mat-icon>settings</mat-icon>
+  </button>
+
+  @if (showOptions()) {
+  <app-income-widget-options
+    [(showOptions)]="showOptions"
+    [data]="data()"
+  ></app-income-widget-options>
+
+  }
+</div>

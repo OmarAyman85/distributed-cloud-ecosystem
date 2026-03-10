@@ -1,0 +1,72 @@
+<h2 mat-dialog-title class="text-txt-main font-bold">
+  {{ isEditing ? "Edit" : "Add" }} Saving Goal
+</h2>
+<mat-dialog-content>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-2 mt-2"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="e.g. Emergency Fund"
+      />
+    </mat-form-field>
+
+    <div class="flex gap-4">
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Target Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="targetAmount"
+          placeholder="0.00"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="flex-1">
+        <mat-label>Current Amount</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="currentAmount"
+          placeholder="0.00"
+        />
+        <mat-error *ngIf="form.hasError('currentExceedsTarget')"
+          >Cannot exceed target</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Target Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="targetDate" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description (Optional)</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end gap-2 px-6 pb-4">
+  <button mat-button class="!text-txt-secondary" (click)="onCancel()">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="form.invalid"
+  >
+    {{ isEditing ? "Save" : "Add" }}
+  </button>
+</mat-dialog-actions>

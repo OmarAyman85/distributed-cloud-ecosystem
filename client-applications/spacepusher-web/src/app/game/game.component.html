@@ -1,0 +1,76 @@
+<section class="game-container">
+  <!-- Join form -->
+  <form
+    *ngIf="!joined"
+    (ngSubmit)="join()"
+    class="join-form"
+    aria-label="Join game form"
+  >
+    <label for="username" class="form-label">Enter your name:</label>
+    <input
+      id="username"
+      type="text"
+      [(ngModel)]="username"
+      name="username"
+      placeholder="Your name"
+      required
+      class="input-text"
+      autocomplete="off"
+      aria-required="true"
+    />
+    <button type="submit" class="btn btn-primary">Join</button>
+  </form>
+
+  <!-- Ready up section -->
+  <section *ngIf="joined && !ready" class="ready-section" aria-live="polite">
+    <p>Click <strong>START GAME</strong> to begin</p>
+    <button
+      (click)="readyUp()"
+      class="btn btn-success"
+      aria-label="Start the game"
+    >
+      START GAME
+    </button>
+  </section>
+
+  <!-- Countdown before game starts -->
+  <section
+    *ngIf="!gameStarted && countdown !== null"
+    class="countdown-timer"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <p>
+      Game starts in: <time>{{ countdown }}</time> seconds
+    </p>
+  </section>
+
+  <!-- Game active section -->
+  <section
+    *ngIf="gameStarted"
+    class="gameplay-section"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+    <h2>Tap FAST!</h2>
+    <p>
+      Taps: <span class="tap-count">{{ taps }}</span>
+    </p>
+    <p *ngIf="gameTimer !== null" class="game-timer">
+      Time left: <time>{{ gameTimer }}</time> seconds
+    </p>
+  </section>
+
+  <!-- Game over / winner display -->
+  <section
+    *ngIf="gameOver"
+    class="game-over"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <p class="winner-message">
+      🏆 Winner: <strong>{{ winner }}</strong> with
+      <strong>{{ winnerScore }}</strong> taps!
+    </p>
+  </section>
+</section>

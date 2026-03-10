@@ -1,0 +1,35 @@
+/* Material sidenav overrides — can't be done with Tailwind */
+mat-sidenav-container {
+  background: transparent !important;
+  height: calc(100vh - 56px);
+  margin-top: 56px;
+}
+
+mat-sidenav {
+  background: transparent !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  padding: 0;
+  height: 100%;
+  overflow: hidden !important;
+
+  app-custom-sidenav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+mat-sidenav-content {
+  background: transparent !important;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  mat-sidenav-content {
+    padding: 16px;
+  }
+}

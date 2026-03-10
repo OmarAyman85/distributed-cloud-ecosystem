@@ -1,0 +1,15 @@
+server:
+  port: 8083
+
+paymob:
+  api:
+    base-url: https://accept.paymob.com
+    intention-endpoint: /v1/intention/
+  secret-key: ${PAYMOB_SECRET_KEY:placeholder_secret}
+  public-key: ${PAYMOB_PUBLIC_KEY:placeholder_public}
+  hmac: ${PAYMOB_HMAC:placeholder_hmac}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,113 @@
+// ===================================
+// SAVVY - MATERIAL THEME CONFIG
+// ===================================
+
+@use "@angular/material" as mat;
+
+// --- Color values (inlined, no longer from _variables) ---
+$primary: #5b7a9d;
+$primary-light: #7ea3c4;
+$primary-dark: #3d5a7c;
+$secondary: #8b8ec2;
+$danger: #c96b6b;
+$surface: var(--bg-surface);
+$text-main: var(--text-main);
+
+// --- PALETTES ---
+$savvy-primary: mat.m2-define-palette(
+  (
+    50: $primary-light,
+    100: $primary-light,
+    200: $primary-light,
+    300: $primary,
+    400: $primary,
+    500: $primary,
+    600: $primary-dark,
+    700: $primary-dark,
+    800: $primary-dark,
+    900: $primary-dark,
+    contrast: (
+      50: #2d3748,
+      100: #2d3748,
+      200: #2d3748,
+      300: #ffffff,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+    ),
+  )
+);
+
+$savvy-accent: mat.m2-define-palette(
+  (
+    50: $primary-light,
+    100: $primary-light,
+    200: $primary-light,
+    300: $secondary,
+    400: $secondary,
+    500: $secondary,
+    600: $secondary,
+    700: $secondary,
+    800: $secondary,
+    900: $secondary,
+    contrast: (
+      50: #2d3748,
+      100: #2d3748,
+      200: #2d3748,
+      300: #ffffff,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+    ),
+  )
+);
+
+$savvy-warn: mat.m2-define-palette(
+  (
+    50: $danger,
+    100: $danger,
+    200: $danger,
+    300: $danger,
+    400: $danger,
+    500: $danger,
+    600: $danger,
+    700: $danger,
+    800: $danger,
+    900: $danger,
+    contrast: (
+      50: #ffffff,
+      100: #ffffff,
+      200: #ffffff,
+      300: #ffffff,
+      400: #ffffff,
+      500: #ffffff,
+      600: #ffffff,
+      700: #ffffff,
+      800: #ffffff,
+      900: #ffffff,
+    ),
+  )
+);
+
+// --- THEME DEFINITION ---
+$savvy-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $savvy-primary,
+      accent: $savvy-accent,
+      warn: $savvy-warn,
+    ),
+    typography: mat.m2-define-typography-config(
+        $font-family: "Inter, sans-serif",
+      ),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($savvy-theme);

@@ -1,0 +1,102 @@
+# =============================================================================
+# UNIFIED ENTERPRISE MONO-REPO GITIGNORE
+# =============================================================================
+# Purpose: Professional-grade protection for a hybrid Java/Maven/Angular/Node repo.
+# =============================================================================
+
+# JAVA / MAVEN / GRADLE
+# -----------------------------------------------------------------------------
+**/target/
+**/build/
+**/bin/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+.mvn/wrapper/maven-wrapper.jar
+.metadata/
+.spring-boot-devtools-restart
+
+# NODE / ANGULAR / FRONTEND
+# -----------------------------------------------------------------------------
+**/node_modules/
+**/dist/
+**/.angular/
+**/.npm/
+**/.cache/
+**/tmp/
+**/out-tsc/
+**/bazel-out/
+**/.sass-cache/
+**/.history/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp*
+.pnp.js
+libpeerconnection.log
+testem.log
+
+# IDEs / EDITORS
+# -----------------------------------------------------------------------------
+# IntelliJ
+**/.idea/
+**/*.iml
+**/*.iws
+**/*.ipr
+**/atlassian-ide-plugin.xml
+**/out/
+
+# VS Code
+**/.vscode/
+**/.history/
+**/*.launch
+**/.project
+**/.classpath
+**/.settings/
+**/.factorypath
+**/.apt_generated
+**/.springBeans
+**/.sts4-cache
+
+# Others
+*~
+*.swp
+*.sublime-workspace
+
+# INFRASTRUCTURE / DOCKER / OS
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+**/*.log
+docker-compose.override.yml
+
+# SECURITY / SECRETS (ZERO TOLERANCE)
+# -----------------------------------------------------------------------------
+**/.env
+**/.env.local
+**/.env.*.local
+**/credentials.json
+**/secret.key
+**/*.pem
+**/*.key
+**/*.p12
+**/*.jks
+**/psw.txt
+
+# CONFIGURATION OVERRIDES
+# -----------------------------------------------------------------------------
+**/*.properties.local
+**/*.yml.local
+**/application-local.yml
+**/application-dev.yml
+
+# =============================================================================
+# END OF CONFIGURATION
+# =============================================================================

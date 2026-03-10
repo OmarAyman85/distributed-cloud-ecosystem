@@ -1,0 +1,27 @@
+# Media Service Centralized Configuration
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/media_db
+    username: user
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# Storage Strategy Configuration
+storage:
+  provider: LOCAL # Options: LOCAL, S3
+  local:
+    path: ./uploads
+  s3:
+    bucket: ayman-media
+    region: us-east-1
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

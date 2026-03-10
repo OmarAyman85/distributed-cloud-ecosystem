@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: payment-service-test
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: false
+    eureka:
+      enabled: false
+
+paymob:
+  api:
+    base-url: http://localhost:8080
+    intention-endpoint: /v1/intention/
+  secret-key: test-secret
+  public-key: test-public
+  hmac: test-hmac
+
+eureka:
+  client:
+    enabled: false

@@ -1,0 +1,98 @@
+<div class="header">
+  <p>Income form</p>
+  <!-- ************************************************* -->
+  <form [formGroup]="incomeForm" class="income-form" (click)="onSubmit()">
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Salary, Freelance, etc."
+      />
+      <mat-error
+        *ngIf="
+          incomeForm.get('title')?.invalid && incomeForm.get('title')?.touched
+        "
+      >
+        Title is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        formControlName="description"
+        placeholder="Salary, Freelance, etc."
+      />
+      <mat-error
+        *ngIf="
+          incomeForm.get('description')?.invalid &&
+          incomeForm.get('source')?.touched
+        "
+      >
+        Description is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <input
+        matInput
+        formControlName="category"
+        placeholder="Salary, Freelance, etc."
+      />
+      <mat-error
+        *ngIf="
+          incomeForm.get('category')?.invalid &&
+          incomeForm.get('source')?.touched
+        "
+      >
+        Category is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="amount"
+        placeholder="Enter amount"
+      />
+      <mat-error
+        *ngIf="
+          incomeForm.get('amount')?.invalid && incomeForm.get('amount')?.touched
+        "
+      >
+        Enter a valid amount (greater than 0)
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput type="date" formControlName="date" />
+      <mat-error
+        *ngIf="
+          incomeForm.get('date')?.invalid && incomeForm.get('date')?.touched
+        "
+      >
+        Date is required
+      </mat-error>
+    </mat-form-field>
+    <!-- ************************************************* -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="incomeForm.invalid"
+      class="submit-button"
+    >
+      Submit Income
+    </button>
+    <!-- ************************************************* -->
+  </form>
+
+  <!-- ************************************************* -->
+</div>

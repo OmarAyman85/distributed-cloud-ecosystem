@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: simuclothing-service
+  config:
+    import: "optional:configserver:http://localhost:8888/"
+  cloud:
+    config:
+      fail-fast: false
+      retry:
+        max-attempts: 20
+        initial-interval: 1000
+        multiplier: 1.1
+        max-interval: 2000

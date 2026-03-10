@@ -1,0 +1,77 @@
+<div class="p-8 max-w-4xl mx-auto min-h-screen">
+  <!-- Header -->
+  <div
+    class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4"
+  >
+    <div>
+      <h1 class="text-4xl font-bold mb-2 flex items-center gap-3 text-txt-main">
+        <mat-icon class="!text-4xl !w-10 !h-10 text-primary"
+          >assistant</mat-icon
+        >
+        AI Financial Advisor
+      </h1>
+      <p class="text-txt-secondary text-lg">
+        Personalized insights and visionary strategies based on your financial
+        picture.
+      </p>
+    </div>
+
+    <button
+      mat-flat-button
+      class="!bg-primary !text-white !px-6 !py-2 !rounded-lg"
+      (click)="fetchAdvice()"
+      [disabled]="isLoading()"
+    >
+      <mat-icon>refresh</mat-icon>
+      Refresh Plan
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div
+      class="glass-card p-16 flex flex-col items-center justify-center text-center animate-pulse"
+    >
+      <mat-spinner diameter="48" class="mb-6"></mat-spinner>
+      <h3 class="text-xl font-semibold mb-2 text-txt-main">
+        Analyzing Your Finances
+      </h3>
+      <p class="text-txt-secondary max-w-sm mx-auto">
+        Our AI is reviewing your Income, Expenses, Debts, Savings, and
+        Investments to formulate a personalized wealth strategy.
+      </p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+    <div
+      class="bg-danger/10 border border-danger/20 rounded-xl p-6 flex flex-col items-center justify-center text-center"
+    >
+      <mat-icon class="!text-5xl !w-14 !h-14 text-danger mb-4"
+        >error_outline</mat-icon
+      >
+      <h3 class="text-xl font-bold text-danger mb-2">Analysis Failed</h3>
+      <p class="text-txt-secondary mb-4">{{ error() }}</p>
+      <button mat-stroked-button color="warn" (click)="fetchAdvice()">
+        Try Again
+      </button>
+    </div>
+  }
+
+  <!-- Results State -->
+  @if (!isLoading() && !error() && advice()) {
+    <div class="glass-card p-8 md:p-12 relative overflow-hidden">
+      <!-- Decorative background element -->
+      <div
+        class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"
+      ></div>
+
+      <!-- The Generated Markdown -->
+      <div
+        [innerHTML]="formatAdvice(advice())"
+        class="relative z-10 text-lg"
+      ></div>
+    </div>
+  }
+</div>

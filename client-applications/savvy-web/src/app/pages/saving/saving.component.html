@@ -1,0 +1,99 @@
+<div class="p-8 max-w-7xl mx-auto min-h-screen">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-4xl font-bold mb-2 text-txt-main">Saving Goals</h1>
+    <p class="text-txt-secondary text-lg">
+      Set your targets and watch your savings grow over time.
+    </p>
+    <div class="flex items-center gap-2 mt-4">
+      <mat-icon class="text-txt-secondary">search</mat-icon>
+      <input
+        type="text"
+        placeholder="Search goals..."
+        class="bg-surface-glass border border-border-glass rounded-lg px-3 py-2 text-sm text-txt-main placeholder:text-txt-light focus:outline-none focus:border-primary"
+        (input)="onSearchChange($event)"
+      />
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div
+    class="grid grid-cols-[repeat(auto-fill,minmax(350px,1fr))] gap-6 max-sm:grid-cols-1"
+  >
+    @for (item of filteredSavings(); track item.id) {
+      <div
+        class="glass-card p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glass"
+      >
+        <div class="flex items-center gap-4">
+          <div
+            class="w-12 h-12 rounded-xl flex items-center justify-center bg-primary/10 text-primary"
+          >
+            <mat-icon>savings</mat-icon>
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg font-semibold mb-0.5 text-txt-main truncate">
+              {{ item.title }}
+            </h3>
+            <p class="text-sm text-txt-secondary m-0 truncate">
+              Target: {{ item.targetDate | date }}
+            </p>
+          </div>
+          <div class="flex gap-1">
+            <button
+              mat-icon-button
+              class="!text-txt-light hover:!text-txt-main"
+              (click)="openEditDialog(item)"
+              matTooltip="Edit"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="!text-txt-light hover:!text-danger"
+              (click)="deleteSaving(item.id)"
+              matTooltip="Delete"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Info -->
+        <div class="mt-2">
+          <div class="flex justify-between text-sm mb-1">
+            <span class="text-txt-secondary">Progress</span>
+            <span class="font-medium text-txt-main"
+              >${{ item.currentAmount }} / ${{ item.targetAmount }}</span
+            >
+          </div>
+          <div class="w-full bg-border-glass rounded-full h-2.5">
+            <div
+              class="bg-primary h-2.5 rounded-full"
+              [style.width.%]="
+                getProgress(item.currentAmount, item.targetAmount)
+              "
+            ></div>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div
+        class="col-span-full flex flex-col items-center justify-center py-16 text-txt-secondary"
+      >
+        <mat-icon class="!text-6xl !w-16 !h-16 mb-4 opacity-50"
+          >savings</mat-icon
+        >
+        <p class="text-xl">No saving goals yet.</p>
+      </div>
+    }
+  </div>
+
+  <button
+    mat-fab
+    class="!fixed !bottom-8 !right-8 !bg-primary !text-white !z-50"
+    (click)="openAddDialog()"
+    matTooltip="Add Saving Goal"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

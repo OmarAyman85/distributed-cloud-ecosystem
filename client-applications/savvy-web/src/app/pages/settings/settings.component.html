@@ -1,0 +1,179 @@
+<div class="p-8 max-w-[900px] mx-auto max-md:p-4">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold mb-1 text-txt-main">Settings</h1>
+    <p class="text-txt-secondary m-0">Manage your preferences and account</p>
+  </div>
+
+  <div class="flex flex-col gap-6">
+    <!-- Appearance -->
+    <div class="glass-card !p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <mat-icon class="text-primary !text-2xl !w-6 !h-6">palette</mat-icon>
+        <h3 class="m-0 text-lg font-semibold text-txt-main">Appearance</h3>
+      </div>
+      <mat-divider class="!opacity-30 !mb-4"></mat-divider>
+      <div
+        class="flex items-center justify-between py-3 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Dark Mode</span>
+          <span class="text-sm text-txt-secondary"
+            >Switch between light and dark theme</span
+          >
+        </div>
+        <mat-slide-toggle
+          [checked]="themeService.darkMode()"
+          (change)="themeService.toggle()"
+          color="primary"
+        ></mat-slide-toggle>
+      </div>
+    </div>
+
+    <!-- Currency & Region -->
+    <div class="glass-card !p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <mat-icon class="text-primary !text-2xl !w-6 !h-6">language</mat-icon>
+        <h3 class="m-0 text-lg font-semibold text-txt-main">
+          Currency & Region
+        </h3>
+      </div>
+      <mat-divider class="!opacity-30 !mb-4"></mat-divider>
+      <div
+        class="flex items-center justify-between py-3 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Currency</span>
+          <span class="text-sm text-txt-secondary"
+            >Select your preferred display currency</span
+          >
+        </div>
+        <mat-form-field appearance="outline" class="!w-36">
+          <mat-label>Currency</mat-label>
+          <mat-select
+            [(value)]="selectedCurrency"
+            (selectionChange)="onCurrencyChange()"
+          >
+            @for (c of currencies; track c.value) {
+              <mat-option [value]="c.value">{{ c.label }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="glass-card !p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <mat-icon class="text-primary !text-2xl !w-6 !h-6"
+          >notifications</mat-icon
+        >
+        <h3 class="m-0 text-lg font-semibold text-txt-main">Notifications</h3>
+      </div>
+      <mat-divider class="!opacity-30 !mb-4"></mat-divider>
+      <div
+        class="flex items-center justify-between py-3 border-b border-white/5 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Push Notifications</span>
+          <span class="text-sm text-txt-secondary"
+            >Receive alerts for transactions and budgets</span
+          >
+        </div>
+        <mat-slide-toggle
+          [(ngModel)]="notificationsEnabled"
+          (change)="onNotificationsChange()"
+          color="primary"
+        ></mat-slide-toggle>
+      </div>
+      <div
+        class="flex items-center justify-between py-3 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Weekly Email Reports</span>
+          <span class="text-sm text-txt-secondary"
+            >Get a weekly summary of your finances</span
+          >
+        </div>
+        <mat-slide-toggle
+          [(ngModel)]="emailReports"
+          (change)="onEmailReportsChange()"
+          color="primary"
+        ></mat-slide-toggle>
+      </div>
+    </div>
+
+    <!-- Data & Privacy -->
+    <div class="glass-card !p-6">
+      <div class="flex items-center gap-3 mb-4">
+        <mat-icon class="text-primary !text-2xl !w-6 !h-6">shield</mat-icon>
+        <h3 class="m-0 text-lg font-semibold text-txt-main">Data & Privacy</h3>
+      </div>
+      <mat-divider class="!opacity-30 !mb-4"></mat-divider>
+      <div
+        class="flex items-center justify-between py-3 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Export Data</span>
+          <span class="text-sm text-txt-secondary"
+            >Download all your data as a CSV file</span
+          >
+        </div>
+        <button
+          mat-stroked-button
+          class="!border-primary !text-primary flex items-center gap-1.5"
+          (click)="exportData()"
+        >
+          <mat-icon class="!text-lg !w-[1.1rem] !h-[1.1rem]">download</mat-icon>
+          Export
+        </button>
+      </div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="glass-card !p-6 !border-danger/20">
+      <div class="flex items-center gap-3 mb-4">
+        <mat-icon class="text-danger !text-2xl !w-6 !h-6">warning</mat-icon>
+        <h3 class="m-0 text-lg font-semibold text-txt-main">Danger Zone</h3>
+      </div>
+      <mat-divider class="!opacity-30 !mb-4"></mat-divider>
+      <div
+        class="flex items-center justify-between py-3 border-b border-white/5 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Log Out</span>
+          <span class="text-sm text-txt-secondary"
+            >Sign out of your account</span
+          >
+        </div>
+        <button
+          mat-stroked-button
+          class="!border-accent !text-accent flex items-center gap-1.5"
+          (click)="logout()"
+        >
+          <mat-icon class="!text-lg !w-[1.1rem] !h-[1.1rem]">logout</mat-icon>
+          Log Out
+        </button>
+      </div>
+      <div
+        class="flex items-center justify-between py-3 max-md:flex-col max-md:items-start max-md:gap-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <span class="font-medium text-txt-main">Delete Account</span>
+          <span class="text-sm text-txt-secondary"
+            >Permanently delete your account and all data</span
+          >
+        </div>
+        <button
+          mat-stroked-button
+          class="!border-danger !text-danger flex items-center gap-1.5"
+          (click)="deleteAccount()"
+        >
+          <mat-icon class="!text-lg !w-[1.1rem] !h-[1.1rem]"
+            >delete_forever</mat-icon
+          >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

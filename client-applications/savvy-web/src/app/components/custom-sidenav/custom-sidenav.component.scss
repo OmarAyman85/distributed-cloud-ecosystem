@@ -1,0 +1,97 @@
+/* Sidenav — Material nav list overrides */
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-glass);
+  overflow: hidden;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mat-mdc-nav-list {
+  padding: 8px 6px !important;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  &.collapsed {
+    padding: 8px 4px !important;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 3px;
+  }
+}
+
+.mat-mdc-list-item {
+  margin: 3px 4px !important;
+  border-radius: 10px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  transition: all 0.2s ease;
+
+  mat-icon {
+    color: var(--text-secondary) !important;
+    transition: color 0.2s ease;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  span[matListItemTitle] {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-main) !important;
+  }
+
+  .mdc-list-item__content {
+    color: var(--text-main) !important;
+  }
+
+  &:hover {
+    background: var(--bg-glass) !important;
+    mat-icon {
+      color: #5b7a9d !important;
+    }
+  }
+
+  &.mdc-list-item--activated {
+    background: rgba(91, 122, 157, 0.15) !important;
+    mat-icon {
+      color: #5b7a9d !important;
+    }
+    span[matListItemTitle] {
+      color: #5b7a9d !important;
+      font-weight: 600 !important;
+    }
+  }
+
+  &.collapsed {
+    justify-content: center !important;
+    padding: 0 8px !important;
+
+    ::ng-deep .mdc-list-item__content {
+      display: flex;
+      justify-content: center !important;
+      padding: 0 !important;
+    }
+
+    mat-icon {
+      margin: 0 !important;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:remove="all">Welcome Email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h1>Welcome, <span th:text="${name}">User</span>!</h1>
+    <p>
+      Thank you for joining our platform. We are excited to have you on board.
+    </p>
+    <p>
+      <a th:href="${actionUrl}">Click here to get started</a>
+    </p>
+  </body>
+</html>

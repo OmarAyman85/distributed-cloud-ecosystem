@@ -1,0 +1,241 @@
+<div
+  class="registration-container relative flex justify-center items-center min-h-screen w-full bg-[#0a0f18] overflow-hidden"
+>
+  <!-- Glowing Background Elements -->
+  <div
+    class="absolute w-[500px] h-[500px] rounded-full blur-[120px] opacity-20 bg-primary -top-[150px] -left-[150px] animate-pulse"
+  ></div>
+  <div
+    class="absolute w-[400px] h-[400px] rounded-full blur-[100px] opacity-20 bg-secondary -bottom-[100px] -right-[100px] animate-pulse"
+    style="animation-delay: 2s"
+  ></div>
+
+  <div
+    class="w-full max-w-[550px] px-6 py-12 z-10 flex flex-col items-center animate-[fadeIn_0.6s_ease-out]"
+  >
+    <div class="text-center mb-10 w-full">
+      <div class="flex justify-center mb-6">
+        <img
+          src="assets/images/logo/full-logo-cropped.png"
+          alt="Savvy Logo"
+          class="h-20 w-auto drop-shadow-[0_0_15px_rgba(91,122,157,0.4)]"
+        />
+      </div>
+      <h1 class="text-white text-2xl font-bold tracking-tight mb-2">
+        Create Account
+      </h1>
+      <p class="text-[#94a3b8] text-base font-medium">
+        Start your journey to financial savvy today.
+      </p>
+    </div>
+
+    <mat-card
+      class="auth-card !w-full !bg-[rgba(15,23,42,0.6)] !backdrop-blur-[20px] !border !border-white/10 !rounded-[24px] !p-1 !shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)]"
+    >
+      <mat-card-content class="!p-8">
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()"
+          class="flex flex-col gap-1"
+        >
+          <mat-form-field
+            appearance="outline"
+            class="custom-form-field !w-full"
+          >
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="John Doe"
+              autocomplete="name"
+              required
+            />
+            <mat-icon matPrefix class="field-icon">person</mat-icon>
+            <mat-error *ngIf="registerForm.get('name')?.hasError('required')"
+              >Name is required</mat-error
+            >
+            <mat-error *ngIf="registerForm.get('name')?.hasError('minlength')"
+              >Name must be at least 2 characters</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="custom-form-field !w-full"
+          >
+            <mat-label>Email Address</mat-label>
+            <input
+              matInput
+              formControlName="email"
+              placeholder="name@example.com"
+              type="email"
+              autocomplete="email"
+              required
+            />
+            <mat-icon matPrefix class="field-icon">email</mat-icon>
+            <mat-error *ngIf="registerForm.get('email')?.hasError('required')"
+              >Email is required</mat-error
+            >
+            <mat-error *ngIf="registerForm.get('email')?.hasError('email')"
+              >Please enter a valid email</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="custom-form-field !w-full"
+          >
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hidePassword ? 'password' : 'text'"
+              formControlName="password"
+              placeholder="••••••••"
+              autocomplete="new-password"
+              required
+            />
+            <mat-icon matPrefix class="field-icon">lock</mat-icon>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hidePassword = !hidePassword"
+              type="button"
+              class="!text-[#64748b]"
+            >
+              <mat-icon>{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="registerForm.get('password')?.hasError('required')"
+              >Password is required</mat-error
+            >
+            <mat-error
+              *ngIf="registerForm.get('password')?.hasError('minlength')"
+              >Minimum 6 characters required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="outline"
+            class="custom-form-field !w-full"
+          >
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              [type]="hideConfirmPassword ? 'password' : 'text'"
+              formControlName="confirmPassword"
+              placeholder="••••••••"
+              required
+            />
+            <mat-icon matPrefix class="field-icon">verified_user</mat-icon>
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hideConfirmPassword = !hideConfirmPassword"
+              type="button"
+              class="!text-[#64748b]"
+            >
+              <mat-icon>{{
+                hideConfirmPassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="registerForm.get('confirmPassword')?.hasError('required')"
+              >Please confirm your password</mat-error
+            >
+            <mat-error
+              *ngIf="
+                registerForm
+                  .get('confirmPassword')
+                  ?.hasError('passwordMismatch')
+              "
+              >Passwords do not match</mat-error
+            >
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            type="submit"
+            class="submit-button !w-full !h-14 !text-base !font-bold !tracking-wide !mt-6 !rounded-xl !bg-gradient-to-r !from-primary !to-[#4c6a8a] !text-white !transition-all !duration-300 shadow-lg"
+            [disabled]="registerForm.invalid || isLoading"
+          >
+            <div class="flex items-center justify-center gap-2">
+              <span *ngIf="!isLoading">Create Account</span>
+              <span *ngIf="isLoading" class="flex items-center gap-2">
+                <span class="animate-pulse">Creating...</span>
+              </span>
+              <mat-icon *ngIf="!isLoading" class="!text-white/80"
+                >arrow_forward</mat-icon
+              >
+            </div>
+          </button>
+        </form>
+
+        <div
+          class="divider flex items-center text-[#64748b] my-8 text-xs font-semibold uppercase tracking-widest before:content-[''] before:flex-1 before:h-[1px] before:bg-white/5 after:content-[''] after:flex-1 after:h-[1px] after:bg-white/5"
+        >
+          <span class="px-4">Or continue with</span>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button
+            mat-stroked-button
+            class="social-btn !w-full !h-12 !border-white/5 !bg-white/[0.03] !text-[#cbd5e1] !rounded-xl hover:!bg-white/[0.08] hover:!border-white/20 !transition-all"
+            (click)="loginWithGoogle()"
+          >
+            <div class="flex items-center justify-center gap-2">
+              <img
+                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                alt="Google"
+                class="w-5 h-5"
+              />
+              <span>Continue with Google</span>
+            </div>
+          </button>
+          <button
+            mat-stroked-button
+            class="social-btn !w-full !h-12 !border-white/5 !bg-white/[0.03] !text-[#cbd5e1] !rounded-xl hover:!bg-white/[0.08] hover:!border-white/20 !transition-all"
+            (click)="loginWithApple()"
+          >
+            <div class="flex items-center justify-center gap-2">
+              <img
+                src="https://www.svgrepo.com/show/511330/apple-173.svg"
+                alt="Apple"
+                class="w-5 h-5 invert opacity-90"
+              />
+              <span>Continue with Apple</span>
+            </div>
+          </button>
+          <button
+            mat-stroked-button
+            class="social-btn !w-full !h-12 !border-white/5 !bg-white/[0.03] !text-[#cbd5e1] !rounded-xl hover:!bg-white/[0.08] hover:!border-white/20 !transition-all"
+            (click)="loginWithLinkedIn()"
+          >
+            <div class="flex items-center justify-center gap-2">
+              <img
+                src="https://www.svgrepo.com/show/448234/linkedin.svg"
+                alt="LinkedIn"
+                class="w-5 h-5 opacity-90"
+              />
+              <span>Continue with LinkedIn</span>
+            </div>
+          </button>
+        </div>
+      </mat-card-content>
+
+      <mat-card-footer
+        class="!bg-transparent text-center py-6 border-t border-white/5"
+      >
+        <p class="text-[#94a3b8] m-0">
+          Already have an account?
+          <a
+            routerLink="/login"
+            class="text-primary font-bold no-underline hover:text-primary-light transition-colors ml-1"
+            >Sign In</a
+          >
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

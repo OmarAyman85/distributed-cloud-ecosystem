@@ -1,0 +1,101 @@
+DATABASE QUERIES :::
+CREATIONS ::
+-- ===================================================================
+-- ENUMS
+-- ===================================================================
+
+CREATE TYPE gender AS ENUM ('MALE', 'FEMALE', 'OTHER', 'PREFER_NOT_TO_SAY');
+CREATE TYPE user_status AS ENUM ('ACTIVE', 'PENDING_VERIFICATION', 'BLOCKED', 'BANNED', 'DEACTIVATED', 'DELETED');
+CREATE TYPE application_status AS ENUM ('ACTIVE', 'INACTIVE', 'PENDING_APPROVAL', 'DECOMMISSIONED');
+CREATE TYPE token_type AS ENUM ('BEARER', 'REFRESH', 'API_KEY', 'ONE_TIME');
+
+-- ===================================================================
+-- TABLE: applications
+-- ===================================================================
+
+CREATE TABLE applications (
+    id BIGSERIAL PRIMARY KEY,
+    app_key VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(100) UNIQUE NOT NULL,
+    description TEXT,
+    status application_status NOT NULL DEFAULT 'ACTIVE',
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+
+-- ===================================================================
+-- TABLE: users
+-- ===================================================================
+
+CREATE TABLE users (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    email VARCHAR(150) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    status user_status NOT NULL DEFAULT 'PENDING_VERIFICATION',
+
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender gender NOT NULL DEFAULT 'PREFER_NOT_TO_SAY',
+
+    mobile_phone VARCHAR(20),
+    apartment VARCHAR(50),
+    floor VARCHAR(20),
+    street VARCHAR(100),
+    area VARCHAR(100),
+    city VARCHAR(100),
+    country VARCHAR(100),
+    postal_code VARCHAR(20),
+
+    mfa_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    mfa_secret VARCHAR(255),
+
+    is_email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    auth_provider VARCHAR(100),
+
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP
+);
+
+-- ===================================================================
+-- TABLE: roles
+-- ===================================================================
+
+CREATE TABLE roles (
+    id BIGSERIAL PRIMARY KEY,
+    role_key VARCHAR(50) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    app_id BIGINT NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP,
+    CONSTRAINT uq_role_per_app UNIQUE (app_id, role_key)
+);
+
+-- ===================================================================
+-- TABLE: user_roles
+-- ===================================================================
+
+CREATE TABLE user_roles (
+    id BIGSERIAL PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    app_id BIGINT NOT NULL REFERENCES applications(id) ON DELETE CASCADE,
+    role_id BIGINT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP,
+    CONSTRAINT uq_user_app_role UNIQUE (user_id, app_id, role_id)
+);
+
+-- ===================================================================
+-- TABLE: refresh_tokens
+-- ===================================================================
+
+CREATE TABLE refresh_tokens (
+    id BIGSERIAL PRIMARY KEY,
+    token VARCHAR(512) UNIQUE NOT NULL,
+    token_type token_type NOT NULL DEFAULT 'BEARER',
+    expired BOOLEAN NOT NULL DEFAULT FALSE,
+    revoked BOOLEAN NOT NULL DEFAULT FALSE,
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
+);
+

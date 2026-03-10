@@ -1,0 +1,20 @@
+server:
+  port: 8082
+
+spring:
+  mail:
+    host: smtp.mailtrap.io # Placeholder, intended to be overridden or replaced with real SMTP
+    port: 2525
+    username: user
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

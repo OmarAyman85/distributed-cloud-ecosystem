@@ -1,0 +1,9 @@
+# Logging Service Configuration
+server:
+  port: 8070
+
+# Centralized logging levels
+logging:
+  level:
+    root: INFO
+    com.ayman.distributed.logging: DEBUG

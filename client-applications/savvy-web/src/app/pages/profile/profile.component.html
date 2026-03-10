@@ -1,0 +1,170 @@
+<div
+  class="p-6 max-w-[700px] mx-auto animate-[fadeScale_0.5s_ease-out] max-sm:p-4"
+>
+  <mat-card class="glass-card !p-0 !overflow-hidden !rounded-3xl">
+    <!-- Header Banner -->
+    <div
+      class="relative h-40 bg-gradient-to-br from-primary-dark via-primary to-primary-light flex items-end justify-center pb-[50px] max-sm:h-36 max-sm:pb-10"
+    >
+      <div
+        class="absolute inset-0 pointer-events-none"
+        style="
+          background:
+            radial-gradient(
+              circle at 20% 30%,
+              rgba(255, 255, 255, 0.15) 0%,
+              transparent 40%
+            ),
+            radial-gradient(
+              circle at 80% 70%,
+              rgba(255, 255, 255, 0.1) 0%,
+              transparent 30%
+            );
+        "
+      ></div>
+      <div class="absolute -bottom-14">
+        <img
+          src="assets/profilepicture.jpg"
+          alt="Profile"
+          class="w-28 h-28 rounded-full border-4 border-surface-card shadow-[0_8px_24px_rgba(0,0,0,0.15)] object-cover bg-surface-card transition-all duration-300 hover:scale-105 max-sm:w-[90px] max-sm:h-[90px]"
+        />
+      </div>
+    </div>
+
+    @if (!isEditing()) {
+      <div
+        class="pt-[70px] px-8 pb-8 text-center bg-surface-card max-sm:pt-14 max-sm:px-5 max-sm:pb-6"
+      >
+        <h2
+          class="text-2xl font-bold text-txt-main mb-2 tracking-tight max-sm:text-xl"
+        >
+          {{ user()?.name || "User Name" }}
+        </h2>
+        <span
+          class="inline-flex items-center gap-1.5 px-4 py-1.5 bg-primary/15 text-primary rounded-full text-xs font-bold mb-7 border border-primary/20 uppercase tracking-wider before:content-['★'] before:text-[0.7rem]"
+        >
+          Pro Member
+        </span>
+
+        <div
+          class="grid grid-cols-2 gap-4 text-left mt-6 max-sm:grid-cols-1 max-sm:gap-3"
+        >
+          <div
+            class="bg-surface-glass p-4 rounded-2xl border border-border-glass backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <label
+              class="block text-xs text-txt-secondary mb-1 uppercase tracking-wider font-semibold"
+              >Email Address</label
+            >
+            <p class="text-txt-main font-semibold text-[0.95rem] m-0">
+              {{ user()?.email || "email@example.com" }}
+            </p>
+          </div>
+          <div
+            class="bg-surface-glass p-4 rounded-2xl border border-border-glass backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <label
+              class="block text-xs text-txt-secondary mb-1 uppercase tracking-wider font-semibold"
+              >Member Since</label
+            >
+            <p class="text-txt-main font-semibold text-[0.95rem] m-0">
+              January 2026
+            </p>
+          </div>
+          <div
+            class="bg-surface-glass p-4 rounded-2xl border border-border-glass backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <label
+              class="block text-xs text-txt-secondary mb-1 uppercase tracking-wider font-semibold"
+              >Currency</label
+            >
+            <p class="text-txt-main font-semibold text-[0.95rem] m-0">
+              USD ($)
+            </p>
+          </div>
+          <div
+            class="bg-surface-glass p-4 rounded-2xl border border-border-glass backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <label
+              class="block text-xs text-txt-secondary mb-1 uppercase tracking-wider font-semibold"
+              >Status</label
+            >
+            <p class="text-txt-main font-semibold text-[0.95rem] m-0">Active</p>
+          </div>
+        </div>
+
+        <div
+          class="flex justify-center gap-3 mt-7 pt-6 border-t border-border-glass max-sm:flex-col max-sm:gap-2.5"
+        >
+          <button
+            mat-flat-button
+            class="!bg-gradient-to-br !from-primary !to-primary-light !text-white !rounded-xl !px-6 !h-11 !font-semibold !shadow-[0_4px_12px_rgba(91,122,157,0.25)] hover:!shadow-[0_6px_20px_rgba(91,122,157,0.35)] hover:!-translate-y-0.5 transition-all duration-200 max-sm:!w-full"
+            (click)="startEdit()"
+          >
+            <mat-icon class="!mr-1.5 !text-lg !w-[18px] !h-[18px] !text-white"
+              >edit</mat-icon
+            >
+            Edit Profile
+          </button>
+          <button
+            mat-stroked-button
+            class="!bg-transparent !text-danger !border-danger/30 !rounded-xl !px-6 !h-11 !font-semibold hover:!bg-danger/[0.08] hover:!border-danger transition-all duration-200 max-sm:!w-full"
+            (click)="logout()"
+          >
+            <mat-icon class="!mr-1.5 !text-lg !w-[18px] !h-[18px] !text-danger"
+              >logout</mat-icon
+            >
+            Logout
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div
+        class="pt-[70px] px-8 pb-8 text-center bg-surface-card max-sm:pt-14 max-sm:px-5 max-sm:pb-6"
+      >
+        <h2 class="text-2xl font-bold text-txt-main mb-6">Edit Profile</h2>
+
+        <mat-form-field appearance="outline" class="!w-full">
+          <mat-label>Full Name</mat-label>
+          <input matInput [(ngModel)]="editName" placeholder="Your name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="!w-full">
+          <mat-label>Email Address</mat-label>
+          <input
+            matInput
+            [(ngModel)]="editEmail"
+            placeholder="your@email.com"
+            type="email"
+          />
+        </mat-form-field>
+
+        <div
+          class="flex justify-center gap-3 mt-7 pt-6 border-t border-border-glass max-sm:flex-col max-sm:gap-2.5"
+        >
+          <button
+            mat-flat-button
+            class="!bg-gradient-to-br !from-primary !to-primary-light !text-white !rounded-xl !px-6 !h-11 !font-semibold max-sm:!w-full"
+            (click)="saveProfile()"
+            [disabled]="isSaving"
+          >
+            <mat-icon class="!mr-1.5 !text-lg !w-[18px] !h-[18px]"
+              >save</mat-icon
+            >
+            {{ isSaving ? "Saving..." : "Save Changes" }}
+          </button>
+          <button
+            mat-stroked-button
+            class="!rounded-xl !px-6 !h-11 !text-txt-secondary max-sm:!w-full"
+            (click)="cancelEdit()"
+          >
+            <mat-icon class="!mr-1.5 !text-lg !w-[18px] !h-[18px]"
+              >close</mat-icon
+            >
+            Cancel
+          </button>
+        </div>
+      </div>
+    }
+  </mat-card>
+</div>
