@@ -1,9 +1,5 @@
 # Enterprise-Grade Distributed Cloud Infrastructure
 
-[![Status: Active Development](https://img.shields.io/badge/Status-Active%20Development-green.svg)](#)
-[![Architecture: Microservices](https://img.shields.io/badge/Architecture-Microservices-blue.svg)](#)
-[![Owner: Omar Ayman](https://img.shields.io/badge/Owner-Omar%20Ayman-orange.svg)](#)
-
 ## Overview
 
 This project is a production-grade, distributed cloud ecosystem designed to unify multiple business domains under a high-availability infrastructure. This repository serves as the **Master Hub** and **Orchestration Layer** for the entire platform.
@@ -80,68 +76,3 @@ graph TD
 ```
 
 ---
-
-## The Core Chassis
-
-| Repository                                   | Technical Function                         | Primary Stack        |
-| :------------------------------------------- | :----------------------------------------- | :------------------- |
-| **[distributed-cloud-infrastructure](link)** | Gateway, Discovery, and Centralized Config | Spring Cloud, Eureka |
-| **[identity-access-management](link)**       | Stateless JWT, OAuth2.0, & RBAC            | Spring Security, JPA |
-| **[dev-ops-utilities](link)**                | Team Onboarding & Migration Automation     | Shell (Bash), Docker |
-
----
-
-## Domain Services
-
-| Service                                   | Purpose                   | Innovation Highlight                          |
-| :---------------------------------------- | :------------------------ | :-------------------------------------------- |
-| **[ai-financial-analytics-engine](link)** | Expense Tracking          | Integrated Spring AI for predictive budgeting |
-| **[modular-ecommerce-api](link)**         | Fashion Marketplace       | Real-time Bosta Logistics integration         |
-| **[realtime-state-sync-engine](link)**    | Multi-device coordination | Socket.io event-driven synchronization        |
-
----
-
-## Architectural Decisions
-
-- **Java/Spring Boot**: Chosen for its robust ecosystem and support for cloud-native patterns.
-- **Stateless Authentication**: JWTs ensure the platform can scale horizontally without session synchronization.
-- **Container-First Strategy**: Every service is fully Dockerized to guarantee environment parity (Dev -> Prod).
-- **Service Discovery**: Eureka allows services to find each other without hardcoded IP addresses, enabling dynamic deployment.
-
----
-
-## Developer Experience (DX) & Automation
-
-The platform includes a suite of automation tools in `/devops-utilities/scripts/` to streamline development and operations:
-
-1.  **Onboarding**: `./devops-utilities/scripts/team_onboarding.sh`
-    - Verifies technical dependencies (Java, Maven, Docker, Node).
-    - Sets up the internal `platform-network`.
-    - Initializes local configuration files from templates.
-2.  **Diagnostics**: `./devops-utilities/scripts/ecosystem_doctor.sh`
-    - Checks the health of core infrastructure (Postgres, MySQL, Zipkin).
-    - Verifies connectivity to the Service Registry and API Gateway.
-3.  **Orchestrator**: `./devops-utilities/scripts/build_all.sh`
-    - Compiles and installs all modules in the correct architectural order.
-
-### Quick Start
-
-To spin up the ecosystem for the first time:
-
-```bash
-./devops-utilities/scripts/team_onboarding.sh
-./devops-utilities/scripts/build_all.sh
-docker-compose -f core-infrastructure/docker-compose.yml up -d
-./devops-utilities/scripts/ecosystem_doctor.sh
-```
-
----
-
-## Roadmap
-
-- [ ] **Distributed-Logging**: Transitioning from local logs to ELK Stack (Logstash, Kibana).
-- [ ] **Automated CI/CD**: Implementing GitHub Actions for automated testing and deployment.
-
----
-
-_Architected by Omar Ayman._
